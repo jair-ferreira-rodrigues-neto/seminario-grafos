@@ -56,4 +56,21 @@ public class GrafoResidual {
         }
         return residual.get(origem).getOrDefault(destino, 0);
     }
+
+    public void aumentarFluxo(String origem, String destino, int valor) {
+        if (valor <= 0) {
+            throw new IllegalArgumentException("Valor do fluxo deve ser positivo.");
+        }
+        int capacidadeResidual = getCapacidadeResidual(origem, destino);
+        if (valor > capacidadeResidual) {
+            throw new IllegalArgumentException("Valor do fluxo excede a capacidade residual da aresta.");
+        }
+        residual.get(origem).put(destino, capacidadeResidual - valor);
+        residual.get(destino).put(origem, getCapacidadeResidual(destino, origem) + valor);
+    }
+
+    public int getFluxo(String origem, String destino) {
+        int fluxo = rede.getCapacidade(origem, destino) - getCapacidadeResidual(origem, destino);
+        return Math.max(fluxo, 0);
+    }
 }
