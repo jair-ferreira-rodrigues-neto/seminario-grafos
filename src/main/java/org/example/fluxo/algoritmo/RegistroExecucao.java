@@ -44,17 +44,20 @@ public class RegistroExecucao {
 
     public String formatar() {
         StringBuilder saida = new StringBuilder();
+        saida.append("========== Execucao do Ford-Fulkerson ==========\n");
         for (Iteracao iteracao : iteracoes) {
-            saida.append("Iteracao ").append(iteracao.getNumero())
-                    .append(": caminho ").append(String.join(" -> ", iteracao.getCaminho()))
-                    .append(", gargalo ").append(iteracao.getGargalo())
-                    .append(", fluxo acumulado ").append(iteracao.getFluxoAcumulado())
-                    .append("\n");
+            saida.append("\n");
+            saida.append("Iteracao ").append(iteracao.getNumero()).append("\n");
+            saida.append(String.format("  %-17s %s%n", "Caminho:", String.join(" -> ", iteracao.getCaminho())));
+            saida.append(String.format("  %-17s %d%n", "Gargalo:", iteracao.getGargalo()));
+            saida.append(String.format("  %-17s %d%n", "Fluxo acumulado:", iteracao.getFluxoAcumulado()));
         }
         if (finalizado) {
-            saida.append("Nao ha mais caminho aumentante. Fluxo maximo: ")
-                    .append(getFluxoMaximo()).append("\n");
+            saida.append("\n");
+            saida.append("Nao ha mais caminho aumentante da fonte ao destino.\n");
+            saida.append("Fluxo maximo: ").append(getFluxoMaximo()).append("\n");
         }
+        saida.append("================================================\n");
         return saida.toString();
     }
 
