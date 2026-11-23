@@ -8,18 +8,18 @@ import java.util.Set;
 
 public class RedeDeFluxo {
     private final Set<String> vertices;
-    private final Map<String, Set<String>> adjacencias;
+    private final Map<String, Map<String, Integer>> capacidades;
     private String fonte;
     private String destino;
 
     public RedeDeFluxo() {
         this.vertices = new HashSet<>();
-        this.adjacencias = new HashMap<>();
+        this.capacidades = new HashMap<>();
     }
 
     public void adicionarVertice(String vertice) {
         vertices.add(vertice);
-        adjacencias.putIfAbsent(vertice, new HashSet<>());
+        capacidades.putIfAbsent(vertice, new HashMap<>());
     }
 
     public void setFonte(String fonte) {
@@ -43,6 +43,22 @@ public class RedeDeFluxo {
     }
 
     public Set<String> getVizinhos(String vertice) {
-        return Collections.unmodifiableSet(adjacencias.getOrDefault(vertice, Collections.emptySet()));
+        Map<String, Integer> vizinhos = capacidades.get(vertice);
+        if (vizinhos == null) {
+            return Collections.emptySet();
+        }
+        return Collections.unmodifiableSet(vizinhos.keySet());
+    }
+
+    public void adicionarAresta(String origem, String destino, int capacidade) {
+        capacidades.get(origem).put(destino, capacidade);
+    }
+
+    public int getCapacidade(String origem, String destino) {
+        Map<String, Integer> vizinhos = capacidades.get(origem);
+        if (vizinhos == null) {
+            return 0;
+        }
+        return vizinhos.getOrDefault(destino, 0);
     }
 }
