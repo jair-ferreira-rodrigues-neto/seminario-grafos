@@ -24,6 +24,11 @@ public class GrafoResidual {
                 residual.get(origem).put(destino, rede.getCapacidade(origem, destino));
             }
         }
+        for (String origem : rede.getVertices()) {
+            for (String destino : rede.getVizinhos(origem)) {
+                residual.get(destino).putIfAbsent(origem, 0);
+            }
+        }
     }
 
     public String getFonte() {
