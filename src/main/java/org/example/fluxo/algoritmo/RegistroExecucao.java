@@ -41,4 +41,24 @@ public class RegistroExecucao {
         }
         return iteracoes.get(iteracoes.size() - 1).getFluxoAcumulado();
     }
+
+    public String formatar() {
+        StringBuilder saida = new StringBuilder();
+        for (Iteracao iteracao : iteracoes) {
+            saida.append("Iteracao ").append(iteracao.getNumero())
+                    .append(": caminho ").append(String.join(" -> ", iteracao.getCaminho()))
+                    .append(", gargalo ").append(iteracao.getGargalo())
+                    .append(", fluxo acumulado ").append(iteracao.getFluxoAcumulado())
+                    .append("\n");
+        }
+        if (finalizado) {
+            saida.append("Nao ha mais caminho aumentante. Fluxo maximo: ")
+                    .append(getFluxoMaximo()).append("\n");
+        }
+        return saida.toString();
+    }
+
+    public void imprimir() {
+        System.out.print(formatar());
+    }
 }
