@@ -17,6 +17,12 @@ public class FordFulkerson {
         if (rede == null) {
             throw new IllegalArgumentException("Rede de fluxo nao pode ser nula.");
         }
+        if (rede.getFonte() == null || rede.getDestino() == null) {
+            throw new IllegalStateException("Fonte e destino devem estar definidos na rede.");
+        }
+        if (rede.getFonte().equals(rede.getDestino())) {
+            return new ResultadoFluxo(0, construirMapaFluxosVazio(rede));
+        }
 
         GrafoResidual grafoResidual = new GrafoResidual(rede);
         int fluxoMaximo = 0;
@@ -41,6 +47,17 @@ public class FordFulkerson {
 
         Map<String, Map<String, Integer>> fluxos = calcularFluxosFinais(rede, grafoResidual);
         return new ResultadoFluxo(fluxoMaximo, fluxos);
+    }
+
+    private Map<String, Map<String, Integer>> construirMapaFluxosVazio(RedeDeFluxo rede) {
+        Map<String, Map<String, Integer>> fluxos = new HashMap<>();
+        for (String u : rede.getVertices()) {
+            fluxos.put(u, new HashMap<>());
+            for (String v : rede.getVizinhos(u)) {
+                fluxos.get(u).put(v, 0);
+            }
+        }
+        return fluxos;
     }
 
     private Map<String, Map<String, Integer>> calcularFluxosFinais(RedeDeFluxo rede, GrafoResidual grafoResidual) {
