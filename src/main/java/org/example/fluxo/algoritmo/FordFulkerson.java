@@ -19,6 +19,7 @@ public class FordFulkerson {
         }
 
         GrafoResidual grafoResidual = new GrafoResidual(rede);
+        int fluxoMaximo = 0;
 
         while (true) {
             Optional<CaminhoAumentante> optCaminho = buscador.buscarCaminho(grafoResidual);
@@ -34,8 +35,23 @@ public class FordFulkerson {
                 String v = caminhoAumentante.caminho().get(i + 1);
                 grafoResidual.aumentarFluxo(u, v, gargalo);
             }
+
+            fluxoMaximo += gargalo;
         }
 
-        return new ResultadoFluxo(0, new HashMap<>());
+        Map<String, Map<String, Integer>> fluxos = calcularFluxosFinais(rede, grafoResidual);
+        return new ResultadoFluxo(fluxoMaximo, fluxos);
+    }
+
+    private Map<String, Map<String, Integer>> calcularFluxosFinais(RedeDeFluxo rede, GrafoResidual grafoResidual) {
+        Map<String, Map<String, Integer>> fluxos = new HashMap<>();
+        for (String u : rede.getVertices()) {
+            fluxos.put(u, new HashMap<>());
+            for (String v : rede.getVizinhos(u)) {
+                int fluxoAresta = grafoResidual.getFluxo(u, v);
+                fluxos.get(u).put(v, fluxoAresta);
+            }
+        }
+        return fluxos;
     }
 }
