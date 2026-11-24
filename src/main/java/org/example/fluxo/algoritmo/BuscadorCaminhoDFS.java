@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import org.example.fluxo.modelo.GrafoResidual;
 
 public class BuscadorCaminhoDFS {
@@ -19,7 +18,8 @@ public class BuscadorCaminhoDFS {
 
         boolean encontrou = dfs(grafo, fonte, destino, visitados, caminhoAtual);
         if (encontrou) {
-            return Optional.of(new CaminhoAumentante(caminhoAtual));
+            int gargalo = calcularGargalo(grafo, caminhoAtual);
+            return Optional.of(new CaminhoAumentante(caminhoAtual, gargalo));
         }
 
         return Optional.empty();
@@ -50,5 +50,16 @@ public class BuscadorCaminhoDFS {
 
         caminhoAtual.removeLast();
         return false;
+    }
+
+    private int calcularGargalo(GrafoResidual grafo, List<String> caminho) {
+        int gargalo = Integer.MAX_VALUE;
+        for (int i = 0; i < caminho.size() - 1; i++) {
+            String origem = caminho.get(i);
+            String destino = caminho.get(i + 1);
+            int cap = grafo.getCapacidadeResidual(origem, destino);
+            gargalo = Math.min(gargalo, cap);
+        }
+        return gargalo;
     }
 }
