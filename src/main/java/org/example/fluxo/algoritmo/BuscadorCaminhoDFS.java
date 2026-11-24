@@ -10,19 +10,31 @@ import org.example.fluxo.modelo.GrafoResidual;
 public class BuscadorCaminhoDFS {
 
     public Optional<CaminhoAumentante> buscarCaminho(GrafoResidual grafo) {
+        if (grafo == null) {
+            throw new IllegalArgumentException("Grafo residual nao pode ser nulo.");
+        }
+
         String fonte = grafo.getFonte();
         String destino = grafo.getDestino();
+
+        if (fonte == null || destino == null) {
+            throw new IllegalStateException("Fonte e destino devem estar definidos na rede.");
+        }
+
+        if (fonte.equals(destino)) {
+            return Optional.empty();
+        }
 
         Set<String> visitados = new HashSet<>();
         List<String> caminhoAtual = new ArrayList<>();
 
         boolean encontrou = dfs(grafo, fonte, destino, visitados, caminhoAtual);
-        if (encontrou) {
-            int gargalo = calcularGargalo(grafo, caminhoAtual);
-            return Optional.of(new CaminhoAumentante(caminhoAtual, gargalo));
+        if (!encontrou) {
+            return Optional.empty();
         }
 
-        return Optional.empty();
+        int gargalo = calcularGargalo(grafo, caminhoAtual);
+        return Optional.of(new CaminhoAumentante(caminhoAtual, gargalo));
     }
 
     private boolean dfs(
