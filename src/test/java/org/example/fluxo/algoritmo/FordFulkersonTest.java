@@ -37,7 +37,6 @@ class FordFulkersonTest {
         rede.adicionarAresta("C", "T", 20);
         rede.adicionarAresta("D", "T", 4);
 
-        // O corte {S, A, B, D} separa o destino com capacidade 12 + 7 + 4.
         assertEquals(23, algoritmo.executar(rede).fluxoMaximo());
     }
 
@@ -79,7 +78,6 @@ class FordFulkersonTest {
 
         ResultadoFluxo resultado = algoritmo.executar(rede);
 
-        // B -> A existe apenas no residual e cancela a unidade enviada por A -> B.
         List<Iteracao> iteracoes = resultado.registroExecucao().getIteracoes();
         assertTrue(iteracoes.stream().anyMatch(i -> i.getCaminho().equals(List.of("S", "B", "A", "T"))));
         assertEquals(0, resultado.fluxosPorAresta().get("A").get("B"));
