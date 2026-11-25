@@ -17,7 +17,6 @@ public class RedeDeDistribuicaoDeAgua {
         rede.setFonte(reservatorio);
         rede.setDestino(bairro);
 
-        // Capacidades das tubulações em litros por segundo.
         rede.adicionarAresta(reservatorio, estacaoNorte, 8);
         rede.adicionarAresta(reservatorio, estacaoSul, 4);
         rede.adicionarAresta(estacaoNorte, bairro, 5);
