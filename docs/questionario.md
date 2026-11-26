@@ -38,9 +38,9 @@
 ## Questões Abertas
 
 ### 4. Explique, com suas palavras, o que aconteceria se o algoritmo de Ford-Fulkerson fosse executado sem as arestas no sentido contrário no grafo residual. Por que elas são necessárias para encontrar o fluxo máximo?
-**Gabarito esperado:** Sem as arestas no sentido contrário, o algoritmo não teria como desfazer ou redirecionar parte de um fluxo já enviado por um caminho escolhido anteriormente[cite: 1]. Assim, o algoritmo ficaria preso a escolhas iniciais subótimas, encerrando a execução assim que acabassem os caminhos diretos disponíveis e retornando um fluxo menor que o fluxo máximo real da rede[cite: 1].
+**Gabarito esperado:** Sem as arestas no sentido contrário, o algoritmo não teria como desfazer ou redirecionar parte de um fluxo já enviado por um caminho escolhido anteriormente. Assim, o algoritmo ficaria preso a escolhas iniciais subótimas, encerrando a execução assim que acabassem os caminhos diretos disponíveis e retornando um fluxo menor que o fluxo máximo real da rede.
 
 ---
 
 ### 5. Por que o algoritmo de Edmonds-Karp substitui a busca em profundidade (DFS) do Ford-Fulkerson clássico pela busca em largura (BFS) ao procurar caminhos aumentantes?
-**Gabarito esperado:** Porque a busca em largura (BFS) procura primeiro os caminhos aumentantes com a **menor quantidade de arestas** entre a origem e o destino no grafo residual[cite: 1]. Isso evita que o algoritmo dependa de escolhas arbitrárias de caminhos quando as capacidades são muito grandes, garantindo uma complexidade polinomial de $O(V \times E^2)$ independentemente dos valores das capacidades[cite: 1].
+**Gabarito esperado:** Porque a busca em largura (BFS) procura primeiro os caminhos aumentantes com a **menor quantidade de arestas** entre a origem e o destino no grafo residual. Isso evita que o algoritmo dependa de escolhas arbitrárias de caminhos quando as capacidades são muito grandes, garantindo uma complexidade polinomial de $O(V \times E^2)$ independentemente dos valores das capacidades.
