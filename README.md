@@ -50,7 +50,35 @@ docs/
 
 ## Como compilar e executar
 
-As instruções serão adicionadas quando a implementação estiver pronta.
+### Requisitos
+
+- **Java 21** ou superior (por exemplo, Java 25)
+- **Apache Maven** (opcional: serve para a linha de comando; você também pode usar a IDE de sua preferência)
+
+### Execução via Maven (linha de comando)
+
+1. Compilar o projeto:
+
+   ```bash
+   mvn clean compile
+   ```
+
+2. Executar o programa principal (`Main`):
+
+   ```bash
+   mvn exec:java "-Dexec.mainClass=org.example.Main"
+   ```
+
+3. Executar a suíte de testes unitários:
+
+   ```bash
+   mvn test
+   ```
+
+### Execução via IntelliJ IDEA
+
+- **Rodar a aplicação:** execute a Run Configuration **Rodar Main** ou diretamente a classe `org.example.Main`.
+- **Rodar os testes:** execute a Run Configuration **Rodar Testes** ou a classe `org.example.fluxo.algoritmo.FordFulkersonTest`.
 
 ## Fluxo de trabalho
 
